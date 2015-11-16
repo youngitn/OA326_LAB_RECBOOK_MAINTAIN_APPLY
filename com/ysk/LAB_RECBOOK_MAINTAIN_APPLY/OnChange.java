@@ -6,7 +6,6 @@ import org.apache.commons.lang.StringUtils;
 
 import SomeUtils._hproc;
 import SomeUtils.Bean.LabRecbookUsingApplyBean;
-import SomeUtils.Bean.TestDAO;
 import SomeUtils.Bean.UserInfoViewBean;
 import SomeUtils.DAO.LabRecbookUsingApplyDAO;
 
@@ -39,8 +38,8 @@ public class OnChange extends _hproc {
 		/**
 		 * addPage RECBOOK_NO
 		 */
-		if (getName().equals("OLD_RECBOOK_NO")) {
-			String bookNo = getValue("OLD_RECBOOK_NO");
+		if (getName().equals("RECBOOK_NO")) {
+			String bookNo = getValue("RECBOOK_NO");
 			LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO();
 			talk tx = getTalk();
 			LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(tx, bookNo);

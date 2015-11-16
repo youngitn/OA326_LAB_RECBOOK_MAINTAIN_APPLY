@@ -12,30 +12,26 @@ import com.ysk.field.Flow;
  *
  */
 public class DoAdd extends _hproc {
-	String nowTable = "LAB_RECBOOK_USING_APPLY";
+	String nowTable = "LAB_RECBOOK_MAINTAIN_APPLY";
 
 	@Override
 	public String action(String value) throws Throwable {
+		/**
+		 * 要檢查的欄位以二維陣列結構做為參數,送進去checkEmpty檢查,如空白則出現訊息提示.
+		 */
+		String[][] field = { { "REQ_EMPID", "申請人員編" },
+				{ "RECBOOK_NO", "紀錄簿編號" }, { "DATE", "申請日期" },
+				{ "REASON", "異動原因" }, { "CONTENT", "欲修訂內容" } };
 
-		String[][] field = { { "RECBOOK_NO", "紀錄簿編號" },
-				{ "RECBOOK_NAME", "紀錄簿名稱" }, { "REC_START_DATE", "紀錄開始日期" },
-				{ "REC_END_DATE", "紀錄節結束日期" } };
-		String condition = "RECBOOK_NO = '" + getValue("RECBOOK_NO")
-				+ "' and REC_START_DATE <= '" + getValue("REC_START_DATE")
-				+ "'";
-		String[][] ret = selectFromWhere("PNO", nowTable, condition);
 		if (checkEmpty(field)) {
-			if (ret.length == 0) {
-				DoInster(nowTable, "課主管");
-				sendEmailAfterAdd(getValue("REQ_EMPID").trim(),"SUB:課主管","內容:課主管",null,"",Flow.FLOW_SING_LEVEL_11);
-			} else {
-				message("此紀錄簿 編號:" + getValue("RECBOOK_NO") + " 已有人先行申請!");
-			}
+
+			DoInster(nowTable, "待處理");
+			sendEmailAfterAdd(getValue("REQ_EMPID").trim(), "SUB:課主管",
+					"內容:課主管", null, "", Flow.FLOW_SING_LEVEL_11);
 		}
+
 		return value;
 	}
-
-	
 
 	public String getInformation() {
 		return "---------------DO_QUERY(\u9001\u51fa\u67e5\u8a62).html_action()----------------";
