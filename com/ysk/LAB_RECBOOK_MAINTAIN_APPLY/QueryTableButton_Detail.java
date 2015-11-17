@@ -1,8 +1,14 @@
 package com.ysk.LAB_RECBOOK_MAINTAIN_APPLY;
 
 //com/ysk/LAB_RECBOOK_MAINTAIN_APPLY/QueryTableButton_Detail;
+import jcx.db.talk;
+
+import org.apache.commons.lang.StringUtils;
+
 import SomeUtils._bproc;
+import SomeUtils.Bean.LabRecbookUsingApplyBean;
 import SomeUtils.Bean.UserInfoViewBean;
+import SomeUtils.DAO.LabRecbookUsingApplyDAO;
 
 /**
  * 用來在表格中做為按鈕,顯示詳細資料.<br>
@@ -20,16 +26,34 @@ public class QueryTableButton_Detail extends _bproc {
 		UserInfoViewBean user = getUserInfo(empIdName[0].trim());
 		//message(user.getEmpid());
 		setValue("PNO", getValue("QUERY_LIST.PNO"));
-		setValue("REQ_EMPID", user.getEmpid());
-		setValue("REC_START_DATE", getValue("QUERY_LIST.REC_START_DATE"));
-		setValue("REC_END_DATE", getValue("QUERY_LIST.REC_END_DATE"));
-		setValue("RECBOOK_NAME", getValue("QUERY_LIST.RECBOOK_NAME"));
+		setValue("REQ_EMPID", user.getEmpid());		
+		setValue("DATE",StringUtils.remove(getValue("QUERY_LIST.DATE"), "00:00:00.0").trim());
 		setValue("RECBOOK_NO", getValue("QUERY_LIST.RECBOOK_NO"));
 
 		setValue("REQ_EMPID_NAME", empIdName[1]);
 		setValue("REQ_DEPT_NAME", user.getDepName());
+		
+		
+		//顯示 原紀錄簿資訊
+		String bookNo = getValue("QUERY_LIST.RECBOOK_NO").trim();
+		LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO();
+		talk tx = getTalk();
+		LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(tx,
+				bookNo);
+		if (l != null) {
+			UserInfoViewBean nowUser = getUserInfo(l.getREQ_EMPID().trim());
+			setValue("OLD_REQ_EMPID", l.getREQ_EMPID());
+			setValue("OLD_REQ_EMPID_NAME", getName(l.getREQ_EMPID().trim()));
+			setValue("OLD_REQ_DEPT_NAME", nowUser.getDepName());
+			setValue("OLD_RECBOOK_NAME", l.getRECBOOK_NAME());
+			setValue("OLD_REC_END_DATE", l.getREC_END_DATE());
+			setValue("OLD_REC_START_DATE", l.getREC_START_DATE());
+		} 
+		setValue("REASON",  getValue("QUERY_LIST.REASON"));
+		setValue("CONTENT", getValue("QUERY_LIST.CONTENT"));
+		//設定欄位可不可視
 		setVisible("DoAdd", false);
-		// QUERY SEND COMPUTE
+		
 
 		return null;
 	}
