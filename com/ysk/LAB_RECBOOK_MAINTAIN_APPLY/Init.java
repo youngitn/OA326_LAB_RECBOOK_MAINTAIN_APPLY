@@ -8,6 +8,7 @@ import SomeUtils._hproc;
 import SomeUtils.Bean.LabRecbookUsingApplyBean;
 import SomeUtils.Bean.UserInfoViewBean;
 import SomeUtils.DAO.LabRecbookUsingApplyDAO;
+import SomeUtils.DAO.UserInfoViewDAO;
 
 /**
  * 進入(基本上跟新增頁面同頁)簽核頁面變執行的程式. 主要用於帶出資料庫欄位以外的資料.
@@ -21,7 +22,9 @@ public class Init extends _hproc {
 	public String action(String paramString) throws Throwable {
 		// TODO Auto-generated method stub
 
-		UserInfoViewBean mUser = getUserInfo(getValue("REQ_EMPID"));
+		UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
+		UserInfoViewBean mUser = ud.getUserInfo(getUser());
+		ud = null ;
 
 		try {
 			if (!mUser.equals(null)) {

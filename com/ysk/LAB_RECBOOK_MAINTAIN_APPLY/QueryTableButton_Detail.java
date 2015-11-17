@@ -9,6 +9,7 @@ import SomeUtils._bproc;
 import SomeUtils.Bean.LabRecbookUsingApplyBean;
 import SomeUtils.Bean.UserInfoViewBean;
 import SomeUtils.DAO.LabRecbookUsingApplyDAO;
+import SomeUtils.DAO.UserInfoViewDAO;
 
 /**
  * 用來在表格中做為按鈕,顯示詳細資料.<br>
@@ -24,7 +25,10 @@ public class QueryTableButton_Detail extends _bproc {
 		// 0:id 1:name
 		String[] empIdName = getValue("QUERY_LIST.REQ_EMPID").split("-");
 		// TODO Auto-generated method stub
-		UserInfoViewBean user = getUserInfo(empIdName[0].trim());
+		UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
+		UserInfoViewBean user = ud.getUserInfo(empIdName[0].trim());
+		
+		//UserInfoViewBean user = getUserInfo(empIdName[0].trim());
 		// message(user.getEmpid());
 		setValue("PNO", getValue("QUERY_LIST.PNO"));
 		setValue("REQ_EMPID", user.getEmpid());
@@ -43,7 +47,7 @@ public class QueryTableButton_Detail extends _bproc {
 		LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(tx,
 				bookNo);
 		if (l != null) {
-			UserInfoViewBean nowUser = getUserInfo(l.getREQ_EMPID().trim());
+			UserInfoViewBean nowUser = ud.getUserInfo(l.getREQ_EMPID().trim());
 			setValue("OLD_REQ_EMPID", l.getREQ_EMPID());
 			setValue("OLD_REQ_EMPID_NAME", getName(l.getREQ_EMPID().trim()));
 			setValue("OLD_REQ_DEPT_NAME", nowUser.getDepName());
@@ -55,7 +59,7 @@ public class QueryTableButton_Detail extends _bproc {
 		setValue("CONTENT", getValue("QUERY_LIST.CONTENT"));
 		// 設定欄位可不可視
 		setVisible("DoAdd", false);
-
+		ud = null;
 		return null;
 	}
 

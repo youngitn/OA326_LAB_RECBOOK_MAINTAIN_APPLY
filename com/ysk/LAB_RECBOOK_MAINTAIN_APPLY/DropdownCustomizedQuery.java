@@ -2,6 +2,7 @@ package com.ysk.LAB_RECBOOK_MAINTAIN_APPLY;
 //com/ysk/LAB_RECBOOK_MAINTAIN_APPLY/DropdownCustomizedQuery;
 import SomeUtils._bQuery;
 import SomeUtils.Bean.UserInfoViewBean;
+import SomeUtils.DAO.UserInfoViewDAO;
 
 public class DropdownCustomizedQuery extends _bQuery {
 
@@ -11,7 +12,9 @@ public class DropdownCustomizedQuery extends _bQuery {
 		// 回傳值必須是空白或以 and 開始,如 "and FIELD1='ABC'"
 		// 也可以回傳完整的 SQL 語法取代原設定的值 如 select distinct display_field,data_field from table1 where type=100
 		//  getRow()==-1 時請回傳最多筆數的 where 條件
-		UserInfoViewBean user = getUserInfo(getUser());
+		UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
+		UserInfoViewBean user = ud.getUserInfo(getUser());
+		ud = null ;
 		String otherConditionString = "";
 
 		// 研發"處" 所以取ParentNo

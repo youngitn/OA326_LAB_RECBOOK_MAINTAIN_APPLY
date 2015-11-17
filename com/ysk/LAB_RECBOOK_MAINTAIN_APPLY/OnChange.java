@@ -8,6 +8,7 @@ import SomeUtils._hproc;
 import SomeUtils.Bean.LabRecbookUsingApplyBean;
 import SomeUtils.Bean.UserInfoViewBean;
 import SomeUtils.DAO.LabRecbookUsingApplyDAO;
+import SomeUtils.DAO.UserInfoViewDAO;
 
 /**
  * 當某個欄位變化時的事件處理.
@@ -24,7 +25,10 @@ public class OnChange extends _hproc {
 		if (getName().equals("QUERY_REQ_EMPID")) {
 			String queryEmpid = getValue(getName());
 			if (!StringUtils.isEmpty(queryEmpid)) {
-				UserInfoViewBean nowUser = getUserInfo(getValue(getName()));
+				UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
+				UserInfoViewBean nowUser = ud.getUserInfo(getValue(getName()));
+				ud = null ;
+				//UserInfoViewBean nowUser = getUserInfo(getValue(getName()));
 				if (nowUser != null) {
 					setValue("QUERY_REQ_EMPID_NAME", nowUser.getHecname());
 					setValue("QUERY_REQ_DEPT_NAME", nowUser.getDepName());
@@ -45,7 +49,10 @@ public class OnChange extends _hproc {
 			LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(tx,
 					bookNo);
 			if (l != null) {
-				UserInfoViewBean nowUser = getUserInfo(l.getREQ_EMPID().trim());
+				UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
+				UserInfoViewBean nowUser = ud.getUserInfo(l.getREQ_EMPID().trim());
+				ud = null ;
+				//UserInfoViewBean nowUser = getUserInfo(l.getREQ_EMPID().trim());
 				setValue("OLD_REQ_EMPID", l.getREQ_EMPID());
 				setValue("OLD_REQ_EMPID_NAME", getName(l.getREQ_EMPID().trim()));
 				setValue("OLD_REQ_DEPT_NAME", nowUser.getDepName());
