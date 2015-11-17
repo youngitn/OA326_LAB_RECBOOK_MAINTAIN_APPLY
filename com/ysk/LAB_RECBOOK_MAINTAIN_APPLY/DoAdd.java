@@ -3,8 +3,6 @@ package com.ysk.LAB_RECBOOK_MAINTAIN_APPLY;
 //import com.ysk.bean.UserInfoViewBean;
 import SomeUtils._hproc;
 
-import com.ysk.field.Flow;
-
 /**
  * 新增資料在此設計
  * 
@@ -25,14 +23,14 @@ public class DoAdd extends _hproc {
 
 		if (checkEmpty(field)) {
 
-			DoInster(nowTable, "待處理");
-			sendEmailAfterAdd(getValue("REQ_EMPID").trim(), "SUB:課主管",
-					"內容:課主管", null, "", Flow.FLOW_SING_LEVEL_11);
+			DoInster(nowTable, "原申請人");
+			sendEmailAfterAdd(getValue("REQ_EMPID").trim(), "SUB:原申請人-"+ getValue("OLD_REQ_EMPID"),
+					"內容:原申請人", null, "", getValue("OLD_REQ_EMPID"));
 		}
-
+		
 		return value;
 	}
-
+	
 	public String getInformation() {
 		return "---------------DO_QUERY(\u9001\u51fa\u67e5\u8a62).html_action()----------------";
 	}
