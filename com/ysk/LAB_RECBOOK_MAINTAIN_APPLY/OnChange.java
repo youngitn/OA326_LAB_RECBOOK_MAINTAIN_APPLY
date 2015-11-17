@@ -42,7 +42,8 @@ public class OnChange extends _hproc {
 			String bookNo = getValue("RECBOOK_NO");
 			LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO();
 			talk tx = getTalk();
-			LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(tx, bookNo);
+			LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(tx,
+					bookNo);
 			if (l != null) {
 				UserInfoViewBean nowUser = getUserInfo(l.getREQ_EMPID().trim());
 				setValue("OLD_REQ_EMPID", l.getREQ_EMPID());
