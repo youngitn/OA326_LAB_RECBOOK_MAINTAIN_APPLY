@@ -65,6 +65,8 @@ public class DoQuery extends _hproc {
 		setQueryTable(list, "LAB_RECBOOK_MAINTAIN_APPLY", "實驗室紀錄簿領用單資料異動申請單", 3, 4,
 				otherConditionString);
 		list.clear();
+		
+		System.gc();
 		return value;
 	}
 
