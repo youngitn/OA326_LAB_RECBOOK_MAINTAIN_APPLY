@@ -2,6 +2,8 @@ package com.ysk.LAB_RECBOOK_MAINTAIN_APPLY.Rule;
 //com/ysk/LAB_RECBOOK_MAINTAIN_APPLY/Rule/RecbookOriginalApplicantRule
 import java.util.Vector;
 
+import jcx.db.talk;
+
 import com.ysk.util.Log;
 import com.ysk.util.LogUtil;
 
@@ -21,11 +23,12 @@ public class RecbookOriginalApplicantRule extends _bRule{
 		Vector<String> id = new Vector<String>();
 		// TODO Auto-generated method stub	
 		LabRecbookUsingApplyDAO l = new LabRecbookUsingApplyDAO();
-		
+		talk t = getTalk();
 		if (l != null){
-			LabRecbookUsingApplyBean lbean = l.getLabRecbookUsingApplyBean(getTalk(), getData("RECBOOK_NO"));
-			id.addElement(lbean.getREQ_EMPID());
+			LabRecbookUsingApplyBean lbean = l.getLabRecbookUsingApplyBean(t, getData("RECBOOK_NO"));
+			id.addElement(lbean.getREQ_EMPID().trim());
 		}
+//		t.queryFromPool("select REQ_EMPID")
 		id.addElement("admin");
 		
 		

@@ -66,7 +66,6 @@ public class DoQuery extends _hproc {
 				otherConditionString);
 		list.clear();
 		
-		System.gc();
 		return value;
 	}
 

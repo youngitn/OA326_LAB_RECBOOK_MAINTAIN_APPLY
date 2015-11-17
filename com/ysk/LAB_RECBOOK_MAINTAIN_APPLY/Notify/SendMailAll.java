@@ -1,4 +1,5 @@
 package com.ysk.LAB_RECBOOK_MAINTAIN_APPLY.Notify;
+
 // com/ysk/LAB_RECBOOK_USING_APPLY/Notify/SendMailAll
 import java.util.Arrays;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ public class SendMailAll extends bProcFlow {
 		String sendRS = "";
 		String email;
 		String[] AllApprovePeople = getAllApprovePeople();
-		String title = getState();
+		String title = getState() + "-結案";
 		String content = getState();
 		int isEmailAllSend = 0;
 
@@ -46,7 +47,6 @@ public class SendMailAll extends bProcFlow {
 		}
 
 		message("EMAIL已寄出通知");
-
 		return true;
 
 	}

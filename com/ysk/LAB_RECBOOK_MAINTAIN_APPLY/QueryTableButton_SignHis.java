@@ -7,8 +7,8 @@ import com.ysk.service.SignFlowHistoryService;
 
 /**
  * 顯示簽核流程歷史.為一表格內按鈕.<br>
- * 用於emaker設計模式中,進入表格欄位,預設值.
- * 這支如果顯示資訊的元件名稱不變 則此程式不需修改.
+ * 用於emaker設計模式中,進入表格欄位,預設值. 這支如果顯示資訊的元件名稱不變 則此程式不需修改.
+ * 
  * @author b0050
  *
  */
