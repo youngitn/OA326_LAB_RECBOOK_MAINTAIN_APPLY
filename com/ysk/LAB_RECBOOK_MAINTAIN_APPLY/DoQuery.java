@@ -32,7 +32,8 @@ public class DoQuery extends _hproc {
 				"簽核狀態", 0));
 		list.add(new QueryItem("'簽核紀錄'", "簽核紀錄", 0));
 		list.add(new QueryItem("'詳細資訊'", "詳細資訊", 0));
-
+		list.add(new QueryItem("REASON", "異動原因", 0));
+		list.add(new QueryItem("CONTENT", "欲修訂內容", 0));
 		UserInfoViewBean user = getUserInfo(getUser());
 		String otherConditionString = "";
 
@@ -56,12 +57,12 @@ public class DoQuery extends _hproc {
 			return value;
 		}
 		/**
-		 * 參數 5,6 代表
+		 * 參數 3,4 代表
 		 * LIST當中的元素位置,會使用到含"員工編號"&"簽核狀態"的元素,各位於list第5和第6的位置.(ArrayList從0開始算)
 		 * 
 		 * 參數 otherConditionString 額外的查詢條件 .
 		 */
-		setQueryTable(list, "LAB_RECBOOK_MAINTAIN_APPLY", "實驗室紀錄簿領用單資料異動申請單", 5, 6,
+		setQueryTable(list, "LAB_RECBOOK_MAINTAIN_APPLY", "實驗室紀錄簿領用單資料異動申請單", 3, 4,
 				otherConditionString);
 		list.clear();
 		return value;
