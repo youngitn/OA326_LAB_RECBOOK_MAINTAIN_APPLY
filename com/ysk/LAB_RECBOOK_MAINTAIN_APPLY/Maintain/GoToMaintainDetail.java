@@ -1,14 +1,10 @@
 package com.ysk.LAB_RECBOOK_MAINTAIN_APPLY.Maintain;
 
-import jcx.db.talk;
-
 import org.apache.commons.lang.StringUtils;
 
 //com/ysk/LAB_RECBOOK_MAINTAIN_APPLY/Maintain/GoToMaintainDetail
 import SomeUtils._hproc;
-import SomeUtils.Bean.LabRecbookUsingApplyBean;
 import SomeUtils.Bean.UserInfoViewBean;
-import SomeUtils.DAO.LabRecbookUsingApplyDAO;
 import SomeUtils.DAO.UserInfoViewDAO;
 
 public class GoToMaintainDetail extends _hproc {
@@ -52,7 +48,7 @@ public class GoToMaintainDetail extends _hproc {
 			setValue("OLD_REQ_EMPID_NAME", uBean.getHecname().trim());
 			setValue("OLD_REQ_DEPT_NAME", uBean.getDepName().trim());
 		}
-		
+
 		if (StringUtils.isEmpty(getValue("QUERY_LIST.OLD_REQ_EMPID").trim())) {
 			uBean = uDao.getUserInfo(getValue("QUERY_LIST.NEW_REQ_EMPID")
 					.trim());
