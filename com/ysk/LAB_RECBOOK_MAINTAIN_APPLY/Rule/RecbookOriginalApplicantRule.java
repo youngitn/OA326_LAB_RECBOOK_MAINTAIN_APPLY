@@ -22,15 +22,16 @@ public class RecbookOriginalApplicantRule extends _bRule{
 		
 		Vector<String> id = new Vector<String>();
 		// TODO Auto-generated method stub	
-		LabRecbookUsingApplyDAO l = new LabRecbookUsingApplyDAO();
+		
 		talk t = getTalk();
+		LabRecbookUsingApplyDAO l = new LabRecbookUsingApplyDAO(t);
 		if (l != null){
-			LabRecbookUsingApplyBean lbean = l.getLabRecbookUsingApplyBean(t, getData("RECBOOK_NO"));
+			LabRecbookUsingApplyBean lbean = l.getLabRecbookUsingApplyBean(getData("RECBOOK_NO"));
 			id.addElement(lbean.getREQ_EMPID().trim());
 		}
 //		t.queryFromPool("select REQ_EMPID")
 		id.addElement("admin");
-		
+		l = null;
 		
 		return id;
 	}

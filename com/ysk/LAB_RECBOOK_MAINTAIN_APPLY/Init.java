@@ -24,15 +24,15 @@ public class Init extends _hproc {
 
 		UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
 		UserInfoViewBean mUser = ud.getUserInfo(getUser());
-		ud = null ;
-		if (POSITION == 5 && getState().equals("紀錄簿管理人")){
+		ud = null;
+		if (POSITION == 5 && getState().equals("紀錄簿管理人")) {
 			setVisible("MAINTAIN", true);
 			setEditable("MAINTAIN", true);
-			//去除空白
-			if (getValue("RECBOOK_NO").trim().length() == 0){
-				setValue("RECBOOK_NO","");
+			// 去除空白
+			if (getValue("RECBOOK_NO").trim().length() == 0) {
+				setValue("RECBOOK_NO", "");
 			}
-			
+
 		}
 		try {
 			if (!mUser.equals(null)) {
@@ -45,11 +45,13 @@ public class Init extends _hproc {
 				String bookNo = getValue("RECBOOK_NO").trim();
 				talk tx = getTalk();
 				LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO(tx);
-				
-				LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(bookNo);
+
+				LabRecbookUsingApplyBean l = labdao
+						.getLabRecbookUsingApplyBean(bookNo);
 				labdao = null;
 				if (l != null) {
-					UserInfoViewBean oldUser = getUserInfo(l.getREQ_EMPID()
+					UserInfoViewDAO dao = new UserInfoViewDAO(tx);
+					UserInfoViewBean oldUser = dao.getUserInfo(l.getREQ_EMPID()
 							.trim());
 					setValue("OLD_PNO", l.getPNO().trim());
 					setValue("OLD_REQ_EMPID", l.getREQ_EMPID().trim());
@@ -60,13 +62,14 @@ public class Init extends _hproc {
 					setValue("OLD_REC_END_DATE", l.getREC_END_DATE().trim());
 					setValue("OLD_REC_START_DATE", l.getREC_START_DATE().trim());
 				}
+				labdao = null;
 			}
 		} catch (NullPointerException e) {
-			System.out.println("OA326--------------"+e.toString());
-			
+			System.out.println("OA326--------------" + e.toString());
+
 			// TODO: handle exception
 		}
-
+		
 		return null;
 	}
 

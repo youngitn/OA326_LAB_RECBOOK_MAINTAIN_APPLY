@@ -44,10 +44,10 @@ public class OnChange extends _hproc {
 		 */
 		if (getName().equals("RECBOOK_NO")) {
 			String bookNo = getValue("RECBOOK_NO");
-			LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO();
+			
 			talk tx = getTalk();
-			LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(tx,
-					bookNo);
+			LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO(tx);
+			LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(bookNo);
 			if (l != null) {
 				UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
 				UserInfoViewBean nowUser = ud.getUserInfo(l.getREQ_EMPID().trim());
@@ -69,8 +69,9 @@ public class OnChange extends _hproc {
 				setValue("OLD_REC_END_DATE", "");
 				setValue("OLD_REC_START_DATE", "");
 			}
+			labdao =null;
 		}
-
+		
 		return value;
 
 	}

@@ -27,8 +27,8 @@ public class QueryTableButton_Detail extends _bproc {
 		// TODO Auto-generated method stub
 		UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
 		UserInfoViewBean user = ud.getUserInfo(empIdName[0].trim());
-		
-		//UserInfoViewBean user = getUserInfo(empIdName[0].trim());
+
+		// UserInfoViewBean user = getUserInfo(empIdName[0].trim());
 		// message(user.getEmpid());
 		setValue("PNO", getValue("QUERY_LIST.PNO"));
 		setValue("REQ_EMPID", user.getEmpid());
@@ -42,10 +42,11 @@ public class QueryTableButton_Detail extends _bproc {
 
 		// 顯示 原紀錄簿資訊
 		String bookNo = getValue("QUERY_LIST.RECBOOK_NO").trim();
-		LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO();
+
 		talk tx = getTalk();
-		LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(tx,
-				bookNo);
+		LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO(tx);
+		LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(bookNo);
+
 		if (l != null) {
 			UserInfoViewBean nowUser = ud.getUserInfo(l.getREQ_EMPID().trim());
 			setValue("OLD_REQ_EMPID", l.getREQ_EMPID());
@@ -60,6 +61,7 @@ public class QueryTableButton_Detail extends _bproc {
 		// 設定欄位可不可視
 		setVisible("DoAdd", false);
 		ud = null;
+		labdao = null;
 		return null;
 	}
 
