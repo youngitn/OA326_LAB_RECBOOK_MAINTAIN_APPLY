@@ -25,30 +25,40 @@ public class Init extends _hproc {
 		UserInfoViewDAO ud = new UserInfoViewDAO(getTalk());
 		UserInfoViewBean mUser = ud.getUserInfo(getUser());
 		ud = null ;
-
+		if (POSITION == 5 && getState().equals("紀錄簿管理人")){
+			setVisible("MAINTAIN", true);
+			setEditable("MAINTAIN", true);
+			//去除空白
+			if (getValue("RECBOOK_NO").trim().length() == 0){
+				setValue("RECBOOK_NO","");
+			}
+			
+		}
 		try {
 			if (!mUser.equals(null)) {
-				setValue("REQ_EMPID", mUser.getEmpid());
-				setValue("REQ_EMPID_NAME", mUser.getHecname());
-				setValue("REQ_DEPT_NAME", mUser.getDepName());
+				setValue("REQ_EMPID", mUser.getEmpid().trim());
+				setValue("REQ_EMPID_NAME", mUser.getHecname().trim());
+				setValue("REQ_DEPT_NAME", mUser.getDepName().trim());
 				setValue("DATE",
 						StringUtils.remove(getValue("DATE"), "00:00:00.0"));
 				// 顯示 原紀錄簿資訊
 				String bookNo = getValue("RECBOOK_NO").trim();
-				LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO();
 				talk tx = getTalk();
-				LabRecbookUsingApplyBean l = labdao
-						.getLabRecbookUsingApplyBean(tx, bookNo);
+				LabRecbookUsingApplyDAO labdao = new LabRecbookUsingApplyDAO(tx);
+				
+				LabRecbookUsingApplyBean l = labdao.getLabRecbookUsingApplyBean(bookNo);
+				labdao = null;
 				if (l != null) {
 					UserInfoViewBean oldUser = getUserInfo(l.getREQ_EMPID()
 							.trim());
-					setValue("OLD_REQ_EMPID", l.getREQ_EMPID());
+					setValue("OLD_PNO", l.getPNO().trim());
+					setValue("OLD_REQ_EMPID", l.getREQ_EMPID().trim());
 					setValue("OLD_REQ_EMPID_NAME", getName(l.getREQ_EMPID()
 							.trim()));
-					setValue("OLD_REQ_DEPT_NAME", oldUser.getDepName());
-					setValue("OLD_RECBOOK_NAME", l.getRECBOOK_NAME());
-					setValue("OLD_REC_END_DATE", l.getREC_END_DATE());
-					setValue("OLD_REC_START_DATE", l.getREC_START_DATE());
+					setValue("OLD_REQ_DEPT_NAME", oldUser.getDepName().trim());
+					setValue("OLD_RECBOOK_NAME", l.getRECBOOK_NAME().trim());
+					setValue("OLD_REC_END_DATE", l.getREC_END_DATE().trim());
+					setValue("OLD_REC_START_DATE", l.getREC_START_DATE().trim());
 				}
 			}
 		} catch (NullPointerException e) {
