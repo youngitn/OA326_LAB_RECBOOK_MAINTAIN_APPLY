@@ -53,6 +53,7 @@ public class OnChange extends _hproc {
 				UserInfoViewBean nowUser = ud.getUserInfo(l.getREQ_EMPID().trim());
 				ud = null ;
 				//UserInfoViewBean nowUser = getUserInfo(l.getREQ_EMPID().trim());
+				setValue("OLD_PNO", l.getPNO());
 				setValue("OLD_REQ_EMPID", l.getREQ_EMPID());
 				setValue("OLD_REQ_EMPID_NAME", getName(l.getREQ_EMPID().trim()));
 				setValue("OLD_REQ_DEPT_NAME", nowUser.getDepName());
@@ -60,6 +61,7 @@ public class OnChange extends _hproc {
 				setValue("OLD_REC_END_DATE", l.getREC_END_DATE());
 				setValue("OLD_REC_START_DATE", l.getREC_START_DATE());
 			} else {
+				setValue("OLD_PNO", "");
 				setValue("OLD_REQ_EMPID", "");
 				setValue("OLD_REQ_EMPID_NAME", "");
 				setValue("OLD_REQ_DEPT_NAME", "");
