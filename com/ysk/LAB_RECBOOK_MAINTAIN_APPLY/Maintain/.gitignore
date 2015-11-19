@@ -2,3 +2,5 @@
 /SaveMaintainRec.class
 /GoToMaintain.class
 /OnChange.class
+/DoQuery.class
+/GoToMaintainQuery.class
