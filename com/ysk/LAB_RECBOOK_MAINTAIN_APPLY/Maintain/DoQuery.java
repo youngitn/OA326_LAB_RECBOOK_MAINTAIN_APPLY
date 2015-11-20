@@ -59,13 +59,15 @@ public class DoQuery extends _hproc {
 		if (user.getParentNo() == LAB_RECBOOK_MAINTAIN_APPLY_FINAL_CONFIG.RD_DEPT_NO
 				|| user.getDepNo() == LAB_RECBOOK_MAINTAIN_APPLY_FINAL_CONFIG.RD_DEPT_NO) {
 
-			otherConditionString += "where (RECBOOK_NO like 'YF%' OR RECBOOK_NO like 'YJ%')";
+			otherConditionString += "where ((OLD_RECBOOK_NO like 'YF%' OR OLD_RECBOOK_NO like 'YJ%')"
+					+ " OR (NEW_RECBOOK_NO like 'YF%' OR NEW_RECBOOK_NO like 'YJ%'))";
 
 		}// 品管"課": 18 或品管課底下的理化組等...
 		else if (user.getParentNo() == LAB_RECBOOK_MAINTAIN_APPLY_FINAL_CONFIG.QC_DEPT_NO
 				|| user.getDepNo() == LAB_RECBOOK_MAINTAIN_APPLY_FINAL_CONFIG.QC_DEPT_NO) {
 
-			otherConditionString += "where (RECBOOK_NO like 'QC%' OR RECBOOK_NO like 'AR%')";
+			otherConditionString += "where ((OLD_RECBOOK_NO like 'QC%' OR OLD_RECBOOK_NO like 'AR%')"
+					+ " OR (NEW_RECBOOK_NO like 'QC%' OR NEW_RECBOOK_NO like 'AR%'))";
 
 		} else if (user.getEmpid().equals("admin")) {
 			otherConditionString = "";
